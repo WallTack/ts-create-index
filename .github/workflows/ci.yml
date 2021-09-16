@@ -17,6 +17,9 @@ jobs:
       - name: Install node modules
         uses: bahmutov/npm-install@v1
 
+      - name: Tests
+        run: npm run test
+
       - name: Automated version bump
         uses: phips28/gh-action-bump-version@4dd78d06ed406ec27e1a09bd2784ec60633071b5
         env:
