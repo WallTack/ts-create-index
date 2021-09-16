@@ -39,7 +39,7 @@
     "export"
   ],
   "license": "BSD-3-Clause",
-  "main": "./dist/index.js",
+  "main": "index.js",
   "name": "ts-create-index",
   "repository": {
     "type": "git",
