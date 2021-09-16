@@ -4,7 +4,9 @@
     "name": "Kabir Sarin",
     "url": "https://kabir-sarin.com"
   },
-  "bin": "./dist/bin/ts-create-index.js",
+  "bin": {
+    "ts-create-index": "dist/bin/ts-create-index.js"
+  },
   "dependencies": {
     "chalk": "^4.0.0",
     "glob": "^7.1.6",
@@ -49,5 +51,5 @@
     "lint": "NODE_ENV=development eslint ./src ./test",
     "test": "NODE_ENV=development mocha --require @babel/register"
   },
-  "version": "3.0.0"
+  "version": "3.0.1"
 }
