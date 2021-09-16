@@ -44,7 +44,7 @@
     "url": "https://github.com/sarink/ts-create-index"
   },
   "scripts": {
-    "build": "rm -fr ./dist && NODE_ENV=production babel --source-maps --copy-files ./src --out-dir ./dist",
+    "build": "rm -fr ./dist && NODE_ENV=production babel --source-maps --copy-files ./src --out-dir ./dist && cp -v ./*.md ./package*.json dist/",
     "ts-create-index": "node ./dist/bin/create-index ./src/utilities",
     "lint": "NODE_ENV=development eslint ./src ./test",
     "test": "NODE_ENV=development mocha --require @babel/register"
