@@ -1,20 +1,14 @@
 import _ from 'lodash';
 
-const safeVariableName = (fileName) => {
-  const indexOfDot = fileName.indexOf('.');
-
-  if (indexOfDot === -1) {
-    return fileName;
-  } else {
-    return fileName.slice(0, indexOfDot);
-  }
+const stripExtension = (filename) => {
+  return filename.includes('.') ? filename.slice(0, filename.lastIndexOf('.')) : filename;
 };
 
 const buildExportBlock = (files) => {
   let importBlock;
 
   importBlock = _.map(files, (fileName) => {
-    return 'export { default as ' + safeVariableName(fileName) + ' } from \'./' + fileName + '\';';
+    return 'export * from \'./' + stripExtension(fileName) + '\';';
   });
 
   importBlock = importBlock.join('\n');
