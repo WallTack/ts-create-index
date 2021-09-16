@@ -1,0 +1,32 @@
+on: [push]
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-18.04
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - name: Checkout (v1)
+        uses: actions/checkout@v1
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Setup node
+        uses: actions/setup-node@v1
+
+      - name: Install node modules
+        uses: bahmutov/npm-install@v1
+
+      - name: Automated version bump
+        uses: phips28/gh-action-bump-version@4dd78d06ed406ec27e1a09bd2784ec60633071b5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build
+        run: NODE_ENV=production npm run build
+
+      - name: Publish to npm
+        working-directory: dist
+        run: npm publish --access public
+        env:
+          NPM_CONFIG_TOKEN: ${{secrets.NPM_CONFIG_TOKEN}}
