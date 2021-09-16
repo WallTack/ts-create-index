@@ -47,7 +47,6 @@
   },
   "scripts": {
     "build": "rm -fr ./dist && NODE_ENV=production babel --source-maps --copy-files ./src ./*.md ./package*.json --out-dir ./dist",
-    "ts-create-index": "node ./dist/bin/ts-create-index ./src/utilities",
     "lint": "NODE_ENV=development eslint ./src ./test",
     "test": "NODE_ENV=development mocha --require @babel/register"
   },
