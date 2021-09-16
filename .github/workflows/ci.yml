@@ -16,6 +16,8 @@ jobs:
 
       - name: Install node modules
         uses: bahmutov/npm-install@v1
+        with:
+          install-command: npm ci --production=false
 
       - name: Tests
         run: npm run test
