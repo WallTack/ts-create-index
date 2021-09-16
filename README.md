@@ -1,4 +1,4 @@
-# create-index
+# ts-create-index
 
 [![NPM version](http://img.shields.io/npm/v/create-index.svg?style=flat-square)](https://www.npmjs.org/package/create-index)
 [![Travis build status](http://img.shields.io/travis/gajus/create-index/master.svg?style=flat-square)](https://travis-ci.org/gajus/create-index)
@@ -36,8 +36,8 @@ This created `index.js` with:
 ```js
 // @create-index
 
-export { default as bar } from './bar.js';
-export { default as foo } from './foo.js';
+export * from './bar';
+export * from './foo';
 
 ```
 
@@ -66,9 +66,9 @@ This have updated `index.js` file:
 ```js
 // @create-index
 
-export { default as bar } from './bar.js';
-export { default as baz } from './baz.js';
-export { default as foo } from './foo.js';
+export * from './bar';
+export * from './baz';
+export * from './foo';
 
 ```
 
@@ -191,8 +191,8 @@ Given the above directory contents, `./index.js` will be:
 ```js
 // @create-index
 
-import { default as bar } from './bar';
-import { default as foo } from './foo.js';
+import * from './bar';
+import * from './foo';
 
 export {
     bar,
@@ -233,8 +233,8 @@ Given the above directory contents, after running `create-index` with `--update`
 ```js
 // @create-index {"ignore": ["/baz.js$/"]}
 
-import { default as bar } from './bar.js';
-import { default as foo } from './foo.js';
+import * from './bar';
+import * from './foo';
 
 export {
     bar,
