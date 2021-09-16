@@ -5,7 +5,7 @@
     "url": "https://kabir-sarin.com"
   },
   "bin": {
-    "ts-create-index": "dist/bin/ts-create-index.js"
+    "ts-create-index": "bin/ts-create-index.js"
   },
   "dependencies": {
     "chalk": "^4.0.0",
