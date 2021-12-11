@@ -7,12 +7,22 @@ import readDirectory from './readDirectory';
 import readIndexConfig from './readIndexConfig';
 import sortByDepth from './sortByDepth';
 
+const writeFileIfDifferentSync = (file, data) => {
+  const fileExists = fs.existsSync(file);
+  const existingData = fileExists ? fs.readFileSync(file, {encoding: 'utf-8'}) : undefined;
+  const dataIsDifferent = existingData !== data;
+  if (!fileExists || dataIsDifferent) {
+    fs.writeFileSync(file, data, {encoding: 'utf-8'});
+  }
+};
+
 export default (directoryPaths, options = {}) => {
-  const sortedDirectoryPaths = sortByDepth(directoryPaths)
-    .filter((directoryPath) => {
-      return validateTargetDirectory(directoryPath, {outputFile: options.outputFile,
-        silent: options.ignoreUnsafe});
+  const sortedDirectoryPaths = sortByDepth(directoryPaths).filter((directoryPath) => {
+    return validateTargetDirectory(directoryPath, {
+      outputFile: options.outputFile,
+      silent: options.ignoreUnsafe,
     });
+  });
 
   _.forEach(sortedDirectoryPaths, (directoryPath) => {
     const config = readIndexConfig(directoryPath, options);
@@ -21,6 +31,6 @@ export default (directoryPaths, options = {}) => {
     const indexCode = createIndexCode(siblings, optionsWithConfig);
     const indexFilePath = path.resolve(directoryPath, options.outputFile || 'index.js');
 
-    fs.writeFileSync(indexFilePath, indexCode);
+    writeFileIfDifferentSync(indexFilePath, indexCode);
   });
 };
