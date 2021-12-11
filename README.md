@@ -2,80 +2,78 @@
 
 ## What's different?
 
-Will now output `export * from './foo';` instead of `export { default as foo } from './foo.js';`
+- Will now output `export * from './foo';` instead of `export { default as foo } from './foo.ts';`
+
+- Only writes files if their contents have changed
+
+- This readme and all the unit tests have been updated so they are accurate
 
 That's it!
 
-[![NPM version](http://img.shields.io/npm/v/create-index.svg?style=flat-square)](https://www.npmjs.org/package/create-index)
-[![Travis build status](http://img.shields.io/travis/gajus/create-index/master.svg?style=flat-square)](https://travis-ci.org/gajus/create-index)
-[![js-canonical-style](https://img.shields.io/badge/code%20style-canonical-blue.svg?style=flat-square)](https://github.com/gajus/canonical)
-
-`create-index` program creates (and maintains) ES6 `./index.js` file in target directories that imports and exports sibling files and directories.
+`ts-create-index` program creates (and maintains) ES6 `./index.ts` file in target directories that imports and exports sibling files and directories.
 
 ## Example
 
 ```sh
 > tree ./
 ./
-├── bar.js
-└── foo.js
+├── bar.ts
+└── foo.ts
 
 0 directories, 2 files
 
-> create-index ./
+> ts-create-index ./
 [13:17:34] Target directories [ './' ]
 [13:17:34] Update index: false
-[13:17:34] ./index.js [created index]
+[13:17:34] ./index.ts [created index]
 [13:17:34] Done
 
 > tree
 .
-├── bar.js
-├── foo.js
-└── index.js
+├── bar.ts
+├── foo.ts
+└── index.ts
 
 0 directories, 3 files
 ```
 
-This created `index.js` with:
+This created `index.ts` with:
 
-```js
-// @create-index
+```ts
+// @ts-create-index
 
-export * from './bar';
-export * from './foo';
-
+export * from "./bar";
+export * from "./foo";
 ```
 
-Lets create a new file and re-run `create-index`:
+Lets create a new file and re-run `ts-create-index`:
 
-```js
-> touch baz.js
+```ts
+> touch baz.ts
 > tree ./
 ./
-├── bar.js
-├── baz.js
-├── foo.js
-└── index.js
+├── bar.ts
+├── baz.ts
+├── foo.ts
+└── index.ts
 
 0 directories, 4 files
 
-> create-index ./
+> ts-create-index ./
 [13:21:55] Target directories [ './' ]
 [13:21:55] Update index: false
-[13:21:55] ./index.js [updated index]
+[13:21:55] ./index.ts [updated index]
 [13:21:55] Done
 ```
 
-This have updated `index.js` file:
+This have updated `index.ts` file:
 
 ```js
-// @create-index
+// @ts-create-index
 
-export * from './bar';
-export * from './baz';
-export * from './foo';
-
+export * from "./bar";
+export * from "./baz";
+export * from "./foo";
 ```
 
 ## Usage
@@ -83,17 +81,17 @@ export * from './foo';
 ### Using CLI Program
 
 ```sh
-npm install create-index
+npm install ts-create-index
 
-create-index --help
+ts-create-index --help
 
 Options:
   --recursive, -r          Create/update index files recursively. Halts on any
-                           unsafe "index.js" files.   [boolean] [default: false]
-  --ignoreUnsafe, -i       Ignores unsafe "index.js" files instead of halting.
+                           unsafe "index.ts" files.   [boolean] [default: false]
+  --ignoreUnsafe, -i       Ignores unsafe "index.ts" files instead of halting.
                                                       [boolean] [default: false]
   --ignoreDirectories, -d  Ignores importing directories into the index file,
-                           even if they have a safe "index.js".
+                           even if they have a safe "index.ts".
                                                       [boolean] [default: false]
   --update, -u             Updates only previously created index files
                            (recursively).             [boolean] [default: false]
@@ -102,29 +100,27 @@ Options:
   --extensions, -x         Allows some extensions to be parsed as valid source.
                            First extension will always be preferred to homonyms
                            with another allowed extension.
-                                                       [array] [default: ["js"]]
-  --outputFile, -o         Output file            [string] [default: "index.js"]                                                      [array] [default: ["js"]]
+                                                       [array] [default: ["ts"]]
+  --outputFile, -o         Output file            [string] [default: "index.ts"]                                                      [array] [default: ["ts"]]
 
 Examples:
-  create-index ./src ./src/utilities      Creates or updates an existing
-                                          create-index index file in the target
+  ts-create-index ./src ./src/utilities      Creates or updates an existing
+                                          ts-create-index index file in the target
                                           (./src, ./src/utilities) directories.
-  create-index --update ./src ./tests     Finds all create-index index files in
+  ts-create-index --update ./src ./tests     Finds all ts-create-index index files in
                                           the target directories and descending
                                           directories. Updates found index
                                           files.
-  create-index ./src --extensions js jsx  Creates or updates an existing
-                                          create-index index file in the target
-                                          (./src) directory for both .js and
-                                          .jsx extensions.
+  ts-create-index ./src --extensions ts tsx  Creates or updates an existing
+                                          ts-create-index index file in the target
+                                          (./src) directory for both .ts and
+                                          .tsx extensions.
 ```
 
-### Using `create-index` Programmatically
+### Using `ts-create-index` Programmatically
 
 ```js
-import {
-    writeIndex
-} from 'create-index';
+import { writeIndex } from "ts-create-index";
 
 /**
  * @type {Function}
@@ -140,29 +136,25 @@ writeIndex;
 Note that the `writeIndex` function is synchronous.
 
 ```js
-import {
-    findIndexFiles
-} from 'create-index';
+import { findIndexFiles } from "ts-create-index";
 
 /**
  * @type {Function}
  * @param {string} directoryPath
- * @returns {Array<string>} List of directory paths that have create-index index file.
+ * @returns {Array<string>} List of directory paths that have ts-create-index index file.
  */
 findIndexFiles;
 ```
 
 ### Gulp
 
-Since [Gulp](http://gulpjs.com/) can ran arbitrary JavaScript code, there is no need for a separate plugin. See [Using `create-index` Programmatically](#using-create-index-programmatically).
+Since [Gulp](http://gulpts.com/) can ran arbitrary JavaScript code, there is no need for a separate plugin. See [Using `ts-create-index` Programmatically](#using-ts-create-index-programmatically).
 
 ```js
-import {
-    writeIndex
-} from 'create-index';
+import { writeIndex } from "ts-create-index";
 
-gulp.task('create-index', () => {
-    writeIndex(['./target_directory']);
+gulp.task("ts-create-index", () => {
+  writeIndex(["./target_directory"]);
 });
 ```
 
@@ -170,15 +162,15 @@ Note that the `writeIndex` function is synchronous.
 
 ## Implementation
 
-`create-index` program will look into the target directory.
+`ts-create-index` program will look into the target directory.
 
-If there is no `./index.js`, it will create a new file, e.g.
+If there is no `./index.ts`, it will create a new file, e.g.
 
-```js
-// @create-index
+```ts
+// @ts-create-index
 ```
 
-Created index file must start with `// @create-index\n\n`. This is used to make sure that `create-index` does not accidentally overwrite your local files.
+Created index file must start with `// @ts-create-index\n\n`. This is used to make sure that `ts-create-index` does not accidentally overwrite your local files.
 
 If there are sibling files, index file will `import` them and `export`, e.g.
 
@@ -189,13 +181,13 @@ drwxr-xr-x   5 gajus  staff   170B  6 Jan 15:39 .
 drwxr-xr-x  10 gajus  staff   340B  6 Jan 15:53 ..
 drwxr-xr-x   2 gajus  staff    68B  6 Jan 15:29 bar
 drwxr-xr-x   2 gajus  staff    68B  6 Jan 15:29 foo
--rw-r--r--   1 gajus  staff     0B  6 Jan 15:29 foo.js
+-rw-r--r--   1 gajus  staff     0B  6 Jan 15:29 foo.ts
 ```
 
-Given the above directory contents, `./index.js` will be:
+Given the above directory contents, `./index.ts` will be:
 
-```js
-// @create-index
+```ts
+// @ts-create-index
 
 import * from './bar';
 import * from './foo';
@@ -208,36 +200,36 @@ export {
 
 When file has the same name as a sibling directory, file `import` takes precedence.
 
-Directories that do not have `./index.js` in themselves will be excluded.
+Directories that do not have `./index.ts` in themselves will be excluded.
 
-When run again, `create-index` will update existing `./index.js` if it starts with `// @create-index\n\n`.
+When run again, `ts-create-index` will update existing `./index.ts` if it starts with `// @ts-create-index\n\n`.
 
-If `create-index` is executed against a directory that contains `./index.js`, which does not start with `// @create-index\n\n`, an error will be thrown.
+If `ts-create-index` is executed against a directory that contains `./index.ts`, which does not start with `// @ts-create-index\n\n`, an error will be thrown.
 
 ## Ignore files on `--update`
 
-`create-index` can ignore files in a directory if `./index.js` contains special object with defined `ignore` property which takes `an array` of `regular expressions` defined as `strings`, e.g.
+`ts-create-index` can ignore files in a directory if `./index.ts` contains special object with defined `ignore` property which takes `an array` of `regular expressions` defined as `strings`, e.g.
 
-```js
-> cat index.js
-// @create-index {"ignore": ["/baz.js$/"]}
+```ts
+> cat index.ts
+// @ts-create-index {"ignore": ["/baz.ts$/"]}
 ```
 
-```js
+```ts
 > tree ./
 ./
-├── bar.js
-├── baz.js
-├── foo.js
-└── index.js
+├── bar.ts
+├── baz.ts
+├── foo.ts
+└── index.ts
 
 0 directories, 4 files
 ```
 
-Given the above directory contents, after running `create-index` with `--update` flag, `./index.js` will be:
+Given the above directory contents, after running `ts-create-index` with `--update` flag, `./index.ts` will be:
 
-```js
-// @create-index {"ignore": ["/baz.js$/"]}
+```ts
+// @ts-create-index {"ignore": ["/baz.ts$/"]}
 
 import * from './bar';
 import * from './foo';
