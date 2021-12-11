@@ -13,7 +13,9 @@ const readFile = (filePath) => {
 };
 
 const removeFile = (filePath) => {
-  fs.unlinkSync(filePath);
+  if (fs.existsSync(filePath)) {
+    fs.unlinkSync(filePath);
+  }
 };
 
 const appendToFile = (filePath, content) => {
