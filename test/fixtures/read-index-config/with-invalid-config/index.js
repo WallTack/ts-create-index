@@ -1,1 +1,1 @@
-// @create-index {ignore: 'foo'}
+// @ts-create-index {ignore: 'foo'}

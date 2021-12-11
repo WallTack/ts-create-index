@@ -2,9 +2,7 @@
 
 import fs from 'fs';
 import path from 'path';
-import {
-  expect,
-} from 'chai';
+import {expect} from 'chai';
 import writeIndex from '../src/utilities/writeIndex';
 import codeExample from './codeExample';
 
@@ -32,12 +30,14 @@ describe('writeIndex()', () => {
     writeIndex([path.resolve(fixturesPath, 'mixed')]);
     const indexCode = readFile(indexFilePath);
 
-    expect(indexCode).to.equal(codeExample(`
-// @create-index
+    expect(indexCode).to.equal(
+      codeExample(`
+// @ts-create-index
 
 export * from './bar';
 export * from './foo';
-    `));
+    `),
+    );
   });
 
   it('creates index with config in target directory', () => {
@@ -51,10 +51,12 @@ export * from './foo';
     writeIndex([path.resolve(fixturesPath, 'with-config')]);
     const indexCode = readFile(indexFilePath);
 
-    expect(indexCode).to.equal(codeExample(`
-// @create-index {"ignore":["/bar.js$/"]}
+    expect(indexCode).to.equal(
+      codeExample(`
+// @ts-create-index {"ignore":["/bar.js$/"]}
 
 export * from './foo';
-    `));
+    `),
+    );
   });
 });

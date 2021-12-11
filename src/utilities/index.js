@@ -1,4 +1,4 @@
-// @create-index
+// @ts-create-index
 
 export createIndexCode from './createIndexCode';
 export findIndexFiles from './findIndexFiles';

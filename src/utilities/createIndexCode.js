@@ -8,7 +8,7 @@ const buildExportBlock = (files) => {
   let importBlock;
 
   importBlock = _.map(files, (fileName) => {
-    return 'export * from \'./' + stripExtension(fileName) + '\';';
+    return "export * from './" + stripExtension(fileName) + "';";
   });
 
   importBlock = importBlock.join('\n');
@@ -37,7 +37,7 @@ export default (filePaths, options = {}) => {
     configCode += ' ' + JSON.stringify(options.config);
   }
 
-  code += '// @create-index' + configCode + '\n\n';
+  code += '// @ts-create-index' + configCode + '\n\n';
 
   if (filePaths.length) {
     const sortedFilePaths = filePaths.sort();

@@ -1,1 +1,1 @@
-// @create-index
+// @ts-create-index

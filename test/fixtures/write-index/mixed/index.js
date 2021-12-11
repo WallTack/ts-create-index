@@ -1,4 +1,4 @@
-// @create-index
+// @ts-create-index
 
 export * from './bar';
 export * from './foo';

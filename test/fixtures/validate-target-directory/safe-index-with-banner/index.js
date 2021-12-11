@@ -1,3 +1,3 @@
 /* eslint-disable */
 
-// @create-index
+// @ts-create-index

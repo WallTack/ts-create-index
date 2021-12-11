@@ -1,1 +1,1 @@
-// @create-index {"ignore": ["/foo.js$/"]}
+// @ts-create-index {"ignore": ["/foo.js$/"]}
