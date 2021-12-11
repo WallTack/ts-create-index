@@ -1,14 +1,14 @@
 # ts-create-index
 
+Forked from: https://github.com/gajus/create-index
+
 ## What's different?
 
 - Will now output `export * from './foo';` instead of `export { default as foo } from './foo.ts';`
-
 - Only writes files if their contents have changed
-
 - This readme and all the unit tests have been updated so they are accurate
 
-That's it!
+---
 
 `ts-create-index` program creates (and maintains) ES6 `./index.ts` file in target directories that imports and exports sibling files and directories.
 
@@ -42,8 +42,8 @@ This created `index.ts` with:
 ```ts
 // @ts-create-index
 
-export * from "./bar";
-export * from "./foo";
+export * from './bar';
+export * from './foo';
 ```
 
 Lets create a new file and re-run `ts-create-index`:
@@ -71,9 +71,9 @@ This have updated `index.ts` file:
 ```js
 // @ts-create-index
 
-export * from "./bar";
-export * from "./baz";
-export * from "./foo";
+export * from './bar';
+export * from './baz';
+export * from './foo';
 ```
 
 ## Usage
@@ -120,7 +120,7 @@ Examples:
 ### Using `ts-create-index` Programmatically
 
 ```js
-import { writeIndex } from "ts-create-index";
+import {writeIndex} from 'ts-create-index';
 
 /**
  * @type {Function}
@@ -136,7 +136,7 @@ writeIndex;
 Note that the `writeIndex` function is synchronous.
 
 ```js
-import { findIndexFiles } from "ts-create-index";
+import {findIndexFiles} from 'ts-create-index';
 
 /**
  * @type {Function}
@@ -151,10 +151,10 @@ findIndexFiles;
 Since [Gulp](http://gulpts.com/) can ran arbitrary JavaScript code, there is no need for a separate plugin. See [Using `ts-create-index` Programmatically](#using-ts-create-index-programmatically).
 
 ```js
-import { writeIndex } from "ts-create-index";
+import {writeIndex} from 'ts-create-index';
 
-gulp.task("ts-create-index", () => {
-  writeIndex(["./target_directory"]);
+gulp.task('ts-create-index', () => {
+  writeIndex(['./target_directory']);
 });
 ```
 
