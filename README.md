@@ -2,12 +2,21 @@
 
 Forked from: https://github.com/gajus/create-index
 
+## Installation
+```
+npm i -D ts-create-index
+```
+or
+```
+yarn add -D ts-create-index
+```
+
 ## What's different?
 
-- Adds a `TsCreateIndexWebpackPlugin`
 - Will now output `export * from './foo';` (instead of `export { default as foo } from './foo.ts';`)
 - Only writes files if their contents have changed
 - This readme and all the unit tests have been updated so they are accurate
+- Adds a `TsCreateIndexWebpackPlugin`
 
 ---
 
@@ -20,7 +29,7 @@ import { TsCreateIndexWebpackPlugin } from 'ts-create-index';
 
 module.exports = {
   plugins: [
-    // Whenever webpack recompiles, a new index.ts file will be generated in the root of these directories
+    // Whenever webpack recompiles, a new index.ts file will be generated in the root of these dirs
     new TsCreateIndexWebpackPlugin({ dirs: ['src/components'] }),
   ]
 }
