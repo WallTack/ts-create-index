@@ -76,7 +76,7 @@ export default (directoryPath, options = {}) => {
     return false;
   }
 
-  const {extensions = ['js'], config = {}, ignoreDirectories = false} = options;
+  const {extensions = ['js', 'ts'], config = {}, ignoreDirectories = false} = options;
 
   let children;
 
