@@ -29,7 +29,7 @@ export default (directoryPaths, options = {}) => {
     const optionsWithConfig = Object.assign({}, options, {config});
     const siblings = readDirectory(directoryPath, optionsWithConfig);
     const indexCode = createIndexCode(siblings, optionsWithConfig);
-    const indexFilePath = path.resolve(directoryPath, options.outputFile || 'index.js');
+    const indexFilePath = path.resolve(directoryPath, options.outputFile || 'index.ts');
 
     writeFileIfDifferentSync(indexFilePath, indexCode);
   });

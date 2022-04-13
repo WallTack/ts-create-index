@@ -8,7 +8,7 @@ export default (directoryPath, options = {}) => {
     return {};
   }
 
-  const indexPath = path.resolve(directoryPath, options.outputFile || 'index.js');
+  const indexPath = path.resolve(directoryPath, options.outputFile || 'index.ts');
   const indexContents = fs.readFileSync(indexPath, 'utf-8');
   const found = indexContents.match(CREATE_INDEX_PATTERN);
   const configLine = typeof found[1] === 'string' ? found[1].trim() : '';
@@ -23,8 +23,10 @@ export default (directoryPath, options = {}) => {
     config = JSON.parse(configLine);
   } catch {
     throw new Error(
-      '"' + indexPath + '" contains invalid configuration object.\n' +
-      'Configuration object must be a valid JSON.',
+      '"' +
+        indexPath +
+        '" contains invalid configuration object.\n' +
+        'Configuration object must be a valid JSON.',
     );
   }
 

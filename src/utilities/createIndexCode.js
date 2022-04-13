@@ -8,7 +8,7 @@ const buildExportBlock = (files) => {
   let importBlock;
 
   importBlock = _.map(files, (fileName) => {
-    return "export * from './" + stripExtension(fileName) + "';";
+    return "export * from './" + stripExtension(fileName) + "';"; // eslint-disable-line quotes
   });
 
   importBlock = importBlock.join('\n');

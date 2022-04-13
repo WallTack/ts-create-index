@@ -3,9 +3,7 @@
 /* eslint-disable filenames/match-regex */
 
 import yargs from 'yargs';
-import {
-  writeIndexCli,
-} from '../utilities';
+import {writeIndexCli} from '../utilities';
 
 const argv = yargs
   .demand(1)
@@ -13,7 +11,7 @@ const argv = yargs
     recursive: {
       alias: 'r',
       default: false,
-      description: 'Create/update index files recursively. Halts on any unsafe "index.js" files.',
+      description: 'Create/update index files recursively. Halts on any unsafe "index.ts" files.',
       type: 'boolean',
     },
   })
@@ -21,7 +19,7 @@ const argv = yargs
     ignoreUnsafe: {
       alias: 'i',
       default: false,
-      description: 'Ignores unsafe "index.js" files instead of halting.',
+      description: 'Ignores unsafe "index.ts" files instead of halting.',
       type: 'boolean',
     },
   })
@@ -29,7 +27,8 @@ const argv = yargs
     ignoreDirectories: {
       alias: 'd',
       default: false,
-      description: 'Ignores importing directories into the index file, even if they have a safe "index.js".',
+      description:
+        'Ignores importing directories into the index file, even if they have a safe "index.ts".',
       type: 'boolean',
     },
   })
@@ -51,14 +50,15 @@ const argv = yargs
     extensions: {
       alias: 'x',
       default: ['js'],
-      description: 'Allows some extensions to be parsed as valid source. First extension will always be preferred to homonyms with another allowed extension.',
+      description:
+        'Allows some extensions to be parsed as valid source. First extension will always be preferred to homonyms with another allowed extension.',
       type: 'array',
     },
   })
   .options({
     outputFile: {
       alias: 'o',
-      default: 'index.js',
+      default: 'index.ts',
       description: 'Output file',
       type: 'string',
     },
@@ -74,8 +74,7 @@ const argv = yargs
   .example(
     'create-index ./src --extensions js jsx',
     'Creates or updates an existing create-index index file in the target (./src) directory for both .js and .jsx extensions.',
-  )
-  .argv;
+  ).argv;
 
 writeIndexCli(argv._, {
   banner: argv.banner,

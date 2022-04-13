@@ -24,7 +24,7 @@ export default (targetDirectory, options = {}) => {
     }
   }
 
-  const indexFilePath = path.resolve(targetDirectory, './' + (options.outputFile || 'index.js'));
+  const indexFilePath = path.resolve(targetDirectory, './' + (options.outputFile || 'index.ts'));
 
   try {
     fs.statSync(indexFilePath);
@@ -44,4 +44,3 @@ export default (targetDirectory, options = {}) => {
 
   return true;
 };
-

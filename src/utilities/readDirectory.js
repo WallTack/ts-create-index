@@ -76,11 +76,7 @@ export default (directoryPath, options = {}) => {
     return false;
   }
 
-  const {
-    extensions = ['js'],
-    config = {},
-    ignoreDirectories = false,
-  } = options;
+  const {extensions = ['js'], config = {}, ignoreDirectories = false} = options;
 
   let children;
 
@@ -102,13 +98,16 @@ export default (directoryPath, options = {}) => {
       return false;
     }
 
-    if (_.startsWith(fileName, options.outputFile || 'index.js')) {
+    if (_.startsWith(fileName, options.outputFile || 'index.ts')) {
       return false;
     }
 
-    if (!isDirectory && !extensions.some((extension) => {
-      return _.endsWith(fileName, '.' + extension);
-    })) {
+    if (
+      !isDirectory &&
+      !extensions.some((extension) => {
+        return _.endsWith(fileName, '.' + extension);
+      })
+    ) {
       return false;
     }
 

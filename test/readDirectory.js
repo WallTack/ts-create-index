@@ -1,7 +1,5 @@
 import path from 'path';
-import {
-  expect,
-} from 'chai';
+import {expect} from 'chai';
 import readDirectory from '../src/utilities/readDirectory';
 
 const fixturesPath = path.resolve(__dirname, 'fixtures/read-directory');
@@ -35,15 +33,17 @@ describe('readDirectory()', () => {
       expect(names).to.deep.equal(['present']);
     });
   });
-  context('target directory contains ./index.js', () => {
-    it('does not include ./index.js', () => {
+  context('target directory contains ./index.ts', () => {
+    it('does not include ./index.ts', () => {
       const names = readDirectory(path.resolve(fixturesPath, 'children-index'));
 
       expect(names).to.deep.equal(['bar', 'foo']);
     });
 
     it('excludes directories if ignoreDirectories = true', () => {
-      const names = readDirectory(path.resolve(fixturesPath, 'children-index'), {ignoreDirectories: true});
+      const names = readDirectory(path.resolve(fixturesPath, 'children-index'), {
+        ignoreDirectories: true,
+      });
 
       expect(names).to.deep.equal([]);
     });
@@ -72,7 +72,10 @@ describe('readDirectory()', () => {
   context('target directory contains non js files, and allowing only jsx', () => {
     it('prefers file', () => {
       const options = {extensions: ['jsx']};
-      const names = readDirectory(path.resolve(fixturesPath, 'children-files-alt-extension'), options);
+      const names = readDirectory(
+        path.resolve(fixturesPath, 'children-files-alt-extension'),
+        options,
+      );
 
       expect(names).to.deep.equal(['bar.jsx']);
     });
@@ -80,27 +83,42 @@ describe('readDirectory()', () => {
   context('target directory contains non js files, and allowing both js and jsx', () => {
     it('prefers file', () => {
       const options = {extensions: ['js', 'jsx']};
-      const names = readDirectory(path.resolve(fixturesPath, 'children-files-alt-extension'), options);
+      const names = readDirectory(
+        path.resolve(fixturesPath, 'children-files-alt-extension'),
+        options,
+      );
 
       expect(names).to.deep.equal(['bar.jsx', 'present.js']);
     });
   });
-  context('target directory contains homonyms files, and allowing both js and jsx, will prefer JS as it is first extension listed', () => {
-    it('prefers file', () => {
-      const options = {extensions: ['js', 'jsx']};
-      const names = readDirectory(path.resolve(fixturesPath, 'children-files-alt-extension-with-homonyms'), options);
+  context(
+    'target directory contains homonyms files, and allowing both js and jsx, will prefer JS as it is first extension listed',
+    () => {
+      it('prefers file', () => {
+        const options = {extensions: ['js', 'jsx']};
+        const names = readDirectory(
+          path.resolve(fixturesPath, 'children-files-alt-extension-with-homonyms'),
+          options,
+        );
 
-      expect(names).to.deep.equal(['bar.js', 'present.js']);
-    });
-  });
-  context('target directory contains homonyms files, and allowing both js and jsx, will prefer JSX as it is first extension listed', () => {
-    it('prefers file', () => {
-      const options = {extensions: ['jsx', 'js']};
-      const names = readDirectory(path.resolve(fixturesPath, 'children-files-alt-extension-with-homonyms'), options);
+        expect(names).to.deep.equal(['bar.js', 'present.js']);
+      });
+    },
+  );
+  context(
+    'target directory contains homonyms files, and allowing both js and jsx, will prefer JSX as it is first extension listed',
+    () => {
+      it('prefers file', () => {
+        const options = {extensions: ['jsx', 'js']};
+        const names = readDirectory(
+          path.resolve(fixturesPath, 'children-files-alt-extension-with-homonyms'),
+          options,
+        );
 
-      expect(names).to.deep.equal(['bar.jsx', 'present.js']);
-    });
-  });
+        expect(names).to.deep.equal(['bar.jsx', 'present.js']);
+      });
+    },
+  );
   context('target directory contains files with no extension', () => {
     it('ignores files', () => {
       const names = readDirectory(path.resolve(fixturesPath, 'children-files-no-extension'));
